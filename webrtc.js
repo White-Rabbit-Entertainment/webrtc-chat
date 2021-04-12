@@ -22,3 +22,5 @@ async function playVideoFromCamera() {
         console.error('Error opening video camera.', error);
     }
 }
+
+playVideoFromCamera();
