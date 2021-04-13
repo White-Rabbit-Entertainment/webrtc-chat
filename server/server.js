@@ -23,7 +23,7 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('message', (message) => {
     console.log(message)
-    log('Got message:', message);
+    log(message);
     // For a real app, would be room only (not broadcast)
     socket.broadcast.emit('message', message);
   });
