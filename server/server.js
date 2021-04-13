@@ -2,7 +2,11 @@ const static = require('node-static');
 const server = require('http').createServer();
 const file = new(static.Server)();
 
-const io = require('socket.io')();
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:8080",
+  },
+});
 console.log("I CAN PRINT");
 io.attach(server, {
   pingInterval: 10000,
@@ -13,22 +17,22 @@ io.attach(server, {
 io.sockets.on('connection', (socket) => {
   console.log("CONNECTED BITCH");
   // Convenience function to log server messages to the client
-  function log(){
-    const array = ['>>> Message from server: '];
-    for (const i = 0; i < arguments.length; i++) {
-      array.push(arguments[i]);
-    }
-      socket.emit('log', array);
+  function log(message){
+    socket.emit('log', message);
   }
 
   socket.on('message', (message) => {
+    console.log(message)
     log('Got message:', message);
     // For a real app, would be room only (not broadcast)
     socket.broadcast.emit('message', message);
   });
 
   socket.on('create or join', (room) => {
-    const numClients = io.sockets.clients(room).length;
+    console.log("Creating room")
+    console.log(room)
+    var clientsList = io.sockets.adapter.rooms[room];
+    var numClients = clientsList == null ? 0 : clientsList.length;
 
     log('Room ' + room + ' has ' + numClients + ' client(s)');
     log('Request to create or join room ' + room);

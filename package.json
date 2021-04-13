@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "node-static": "^0.7.11",
-    "socket.io": "^4.0.1"
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1"
   }
 }
