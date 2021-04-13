@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:White-Rabbit-Entertainment/webrtc-chat.git",
   "author": "jelgar <jamesnelgar@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-static": "^0.7.11",
+    "socket.io": "^4.0.1"
+  }
 }
