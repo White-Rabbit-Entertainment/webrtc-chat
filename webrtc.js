@@ -9,7 +9,8 @@ var callButton = document.getElementById("call-button");
 callButton.addEventListener("click", makeOffer)
 
 // Socket server setup
-const URL = "http://127.0.0.1:3000";
+// const URL = "http://127.0.0.1:3000";
+const URL = "http://157.90.119.115:3000/";
 const socket = io(URL, { autoConnect: true });
 // socket.onAny((event, ...args) => {
 //   console.log(event, args);
