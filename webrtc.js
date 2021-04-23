@@ -29,6 +29,7 @@ peerConnection.onicecandidate = (event) => {
     console.log("icecandidate happened")
     if (event.candidate) {
         console.log("icecandidate really happened")
+        console.log(event.candidate);
         socket.emit("message", {"iceCandidate": event.candidate});
     }
 };
@@ -71,16 +72,21 @@ async function setUpLocalStream() {
 }
 
 async function makeOffer() {
-    console.log("making call")
+    // Listen for an answer (response to offer)
     socket.on('message', async message => {
         if (message.answer) {
             console.log("Got answer")
+            console.log(message.answer)
             const remoteDesc = new RTCSessionDescription(message.answer);
             await peerConnection.setRemoteDescription(remoteDesc);
         }
     });
+
+    // Send out an offer
     const offer = await peerConnection.createOffer({offerToReceiveAudio: true, offerToReceiveVideo: true});
     await peerConnection.setLocalDescription(offer);
+    console.log("Offer sent");
+    console.log(offer);
     socket.emit("message", {'offer': offer});
 }
 
@@ -89,6 +95,7 @@ socket.on('message', async message => {
     if (message.offer) {
         peerConnection.setRemoteDescription(new RTCSessionDescription(message.offer));
         const answer = await peerConnection.createAnswer();
+        console.log(answer)
         await peerConnection.setLocalDescription(answer);
         socket.emit("message", {'answer': answer});
     }
