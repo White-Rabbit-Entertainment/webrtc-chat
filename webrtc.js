@@ -25,7 +25,7 @@ const configuration = {
         {
             urls: 'turn:157.90.119.115:3478',
             username: 'test',
-            credentials: 'test123'
+            credential: 'test123'
         }
     ]
 }
