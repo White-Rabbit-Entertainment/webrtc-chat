@@ -10,10 +10,9 @@ services:
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   coturn:
-    image: coturn/coturn
+    image: instrumentisto/coturn
     restart: always
     network_mode: "host"
     volumes:
       - ./turnserver.conf:/etc/coturn/turnserver.conf
-      - ./turnserver.log:/etc/coturn/turnserver.conf
       - ./data/certbot/conf:/etc/letencrypt
