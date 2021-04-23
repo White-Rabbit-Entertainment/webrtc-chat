@@ -20,7 +20,15 @@ socket.on("connect", () => {
 
 
 // Setup peer connection
-const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]}
+const configuration = {
+    'iceServers': [
+        {
+            urls: 'turn:157.90.119.115:3478',
+            username: 'test',
+            credentials: 'test123'
+        }
+    ]
+}
 const peerConnection = new RTCPeerConnection(configuration);
 
 peerConnection.ontrack = () => remoteStream.addTrack(event.track, remoteStream)
